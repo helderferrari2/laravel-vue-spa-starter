@@ -19,7 +19,6 @@ export default {
                 context.commit("PRELOADER", true);
                 return apiUserStore(params)
                     .then(response => resolve())
-                    // .catch(error => reject(error.response.data.errors))
                     .catch(error => reject(Object.values(error.response.data.errors).map(item => item[0])))
                     .finally(() => context.commit("PRELOADER", false));
             });

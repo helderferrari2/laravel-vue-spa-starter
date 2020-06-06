@@ -5,11 +5,6 @@ import Home from "@/pages/home/Home";
 
 
 const routes = [
-    // Default route
-    // {
-    //     path: "/",
-    //     redirect: "/login"
-    // },
 
     //Login
     {

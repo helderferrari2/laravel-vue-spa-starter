@@ -1,7 +1,7 @@
 <template>
   <footer class="main-footer bg-dark">
     <div class="row">
-      <span class="copyright mx-auto">COPYRIGHT © {{ new Date().getFullYear() }}</span>
+      <span class="copyright mx-auto">SPA-VUE-STARTER COPYRIGHT © {{ new Date().getFullYear() }}</span>
     </div>
   </footer>
 </template>

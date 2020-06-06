@@ -1,7 +1,7 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import routes from "@/router/routes.map";
-import store from "@/store/store";
+import { checkUserAuth, checkAccessMiddleware } from "@/router/middlewares";
 
 //ROUTES
 Vue.use(VueRouter);
@@ -10,17 +10,7 @@ const router = new VueRouter({
     routes
 });
 
-//MIDDLEWARE
-// router.beforeEach((to, from, next) => {
-//     if (to.matched.some(record => record.meta.requiresAuth)) {
-//         if (store.state.auth.authenticated && store.state.auth.user) {
-//             next();
-//         }else{
-//             //atualizar token e depois vai
-            
-//         }
-//     }
-//     next("/login");
-// });
+router.beforeEach(checkUserAuth);
+router.beforeEach(checkAccessMiddleware);
 
 export default router;

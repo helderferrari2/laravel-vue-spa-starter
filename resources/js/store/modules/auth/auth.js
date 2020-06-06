@@ -3,7 +3,7 @@ import { getToken, setToken, deleteToken } from "@/store/modules/auth/auth.servi
 
 export default {
     state: {
-        user: {},
+        user: null,
         authenticated: false
     },
 
@@ -13,7 +13,7 @@ export default {
         },
 
         AUTH_USER_LOGOUT(state) {
-            state.user = {};
+            state.user = null;
             state.authenticated = false;
         }
     },
@@ -36,22 +36,16 @@ export default {
             });
         },
 
-        checkUserAuth() {
+        getUserAuth(context) {
             return new Promise((resolve, reject) => {
-                let token = getToken();
-                if (token) {
-                    return apiGetUserAuth()
-                        .then(response => {
-                            context.commit("AUTH_USER", response.data.data);
-                            resolve();
-                        })
-                        .catch(error => {
-                            reject();
-                        });
-
-                    return resolve();
-                }
-                return reject();
+                context.commit("PRELOADER", true);
+                return apiGetUserAuth()
+                    .then(response => {
+                        context.commit("AUTH_USER", response.data.data);
+                        resolve();
+                    })
+                    .catch(error => reject())
+                    .finally(() => context.commit("PRELOADER", false));
             });
         },
 
