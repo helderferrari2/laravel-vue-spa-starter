@@ -2,11 +2,15 @@
 
 namespace App\Exceptions;
 
+use App\Traits\RespondsWithHttpStatus;
 use Exception;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use \Illuminate\Validation\ValidationException;
 
 class Handler extends ExceptionHandler
 {
+    use RespondsWithHttpStatus;
+
     /**
      * A list of the exception types that are not reported.
      *
@@ -50,6 +54,11 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
+        //InvalidArgumentException, validator Laravel
+        if ($exception instanceof \InvalidArgumentException) {
+            return $this->errorResponse(json_decode($exception->getMessage(), true), 422);
+        }
+
         return parent::render($request, $exception);
     }
 }

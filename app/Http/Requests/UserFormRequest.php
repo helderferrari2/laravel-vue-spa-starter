@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UserFormRequest extends FormRequest
@@ -28,5 +29,10 @@ class UserFormRequest extends FormRequest
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8|confirmed',
         ];
+    }
+
+    protected function failedValidation(Validator $validator)
+    {
+        throw new \InvalidArgumentException($validator->errors());
     }
 }

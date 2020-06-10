@@ -1,5 +1,6 @@
-import { apiLogin, apiGetUserAuth } from "@/api/api";
-import { getToken, setToken, deleteToken } from "@/store/modules/auth/auth.service";
+import { AuthService } from "@/services/auth.service";
+import { handleErrorResponse } from "@/services/helpers.service";
+import endpoint from "@/api/api";
 
 export default {
     state: {
@@ -23,34 +24,33 @@ export default {
     actions: {
         login(context, params) {
             return new Promise((resolve, reject) => {
-                context.commit("PRELOADER", true);
-                return apiLogin(params)
+                return endpoint
+                    .apiLogin(params)
                     .then(response => {
-                        let { user, token } = response.data.data;
-                        context.commit("AUTH_USER", user);
-                        setToken(token);
-                        resolve(user);
+                        context.commit("AUTH_USER", response.data.data.user);
+                        AuthService.setToken(response.data.data.token);
+                        resolve(response);
                     })
-                    .catch(error => reject(error.response.data.data))
-                    .finally(() => context.commit("PRELOADER", false));
+                    .catch(error => {
+                        reject(handleErrorResponse(error));
+                    });
             });
         },
 
         getUserAuth(context) {
             return new Promise((resolve, reject) => {
-                context.commit("PRELOADER", true);
-                return apiGetUserAuth()
+                return endpoint
+                    .apiGetUserAuth()
                     .then(response => {
                         context.commit("AUTH_USER", response.data.data);
                         resolve();
                     })
-                    .catch(error => reject())
-                    .finally(() => context.commit("PRELOADER", false));
+                    .catch(() => reject());
             });
         },
 
         logout(context) {
-            deleteToken();
+            AuthService.deleteToken();
             context.commit("AUTH_USER_LOGOUT");
         }
     }
