@@ -1,16 +1,20 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import routes from "@/router/routes.map";
-import { checkUserAuth, checkAccessMiddleware } from "@/router/middlewares";
+import {
+  initCurrentUserStateMiddleware,
+  checkAccessMiddleware
+} from "@/router/middlewares";
 
 //ROUTES
 Vue.use(VueRouter);
 const router = new VueRouter({
-    mode: "history",
-    routes
+  mode: "history",
+  routes
 });
 
-router.beforeEach(checkUserAuth);
+//Middlewares
+router.beforeEach(initCurrentUserStateMiddleware);
 router.beforeEach(checkAccessMiddleware);
 
 export default router;

@@ -2,26 +2,26 @@
 
 namespace App\Traits;
 
-trait RespondsWithHttpStatus{
+trait RespondsWithHttpStatus
+{
 
     protected function successResponse($data = [], $code = 200)
     {
         $response = [
-			'code' => $code,
-			'status' => 'success',
-			'data' => $data
-		];
+            'code' => $code,
+            'success' => true,
+            'data' => $data
+        ];
         return response()->json($response, $code);
     }
 
-    protected function errorResponse($data = [], $code = 422)
+    protected function errorResponse($error, $code = 422)
     {
         $response = [
-			'code' => $code,
-			'status' => 'error',
-			'data' => $data
-		];
+            'code' => $code,
+            'success' => false,
+            'error' => $error
+        ];
         return response()->json($response, $code);
     }
-
 }

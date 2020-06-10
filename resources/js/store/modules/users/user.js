@@ -1,27 +1,29 @@
-import { apiUserStore } from "@/api/api";
+import { handleErrorResponse } from "@/services/helpers.service";
+import endpoint from "@/api/api";
 
 export default {
-    state: {
-        user: {}
-    },
+  state: {
+    user: {}
+  },
 
-    mutations: {
-        SET_USER(state, payload) {
-            state.user = payload;
-        }
-    },
-
-    getters: {},
-
-    actions: {
-        userStore(context, params) {
-            return new Promise((resolve, reject) => {
-                context.commit("PRELOADER", true);
-                return apiUserStore(params)
-                    .then(response => resolve())
-                    .catch(error => reject(Object.values(error.response.data.errors).map(item => item[0])))
-                    .finally(() => context.commit("PRELOADER", false));
-            });
-        }
+  mutations: {
+    SET_USER(state, payload) {
+      state.user = payload;
     }
+  },
+
+  getters: {},
+
+  actions: {
+    userStore(context, params) {
+      return new Promise((resolve, reject) => {
+        return endpoint
+          .apiUserStore(params)
+          .then(() => resolve())
+          .catch(error => {
+            reject(handleErrorResponse(error));
+          });
+      });
+    }
+  }
 };

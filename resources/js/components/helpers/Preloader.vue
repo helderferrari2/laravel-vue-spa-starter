@@ -1,25 +1,24 @@
 <template>
-  <div class="preloader" v-show="preloader">
-    <img src="/assets/images/preloader.gif" alt="Preloader..." />
-  </div>
+    <div class="preloader" v-show="preloader">
+        <img src="/assets/images/preloader.gif" alt="Preloader..." />
+    </div>
 </template>
-
 
 <script>
 export default {
-  computed: {
-    preloader() {
-      return this.$store.state.preloader.isLoading;
+    computed: {
+        preloader() {
+            return this.$store.state.preloader.isLoading;
+        }
     }
-  }
 };
 </script>
 
 <style scoped>
 /*Overlay */
 
-.preloader{
-  background-color: hsla(0,0%,100%,.75);
+.preloader {
+    background-color: hsla(0, 0%, 100%, 0.75);
     z-index: 9999;
     top: 0;
     left: 0;
@@ -30,11 +29,11 @@ export default {
 }
 
 .preloader {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .preloader img {
-  max-width: 10%;
+    max-width: 10%;
 }
 </style>
