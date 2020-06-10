@@ -1,17 +1,19 @@
 <template>
-  <div class="main">
-    <div class="main__header">
-      <header-component></header-component>
+    <div class="main">
+        <div class="main__header">
+            <header-component></header-component>
+        </div>
+        <div class="main__body">
+            <div class="main__body__content">
+                <transition name="fade">
+                    <router-view></router-view>
+                </transition>
+            </div>
+            <div class="main__body__footer">
+                <footer-component></footer-component>
+            </div>
+        </div>
     </div>
-    <div class="main__body">
-      <div class="main__body__content">
-        <router-view></router-view>
-      </div>
-      <div class="main__body__footer">
-        <footer-component></footer-component>
-      </div>
-    </div>
-  </div>
 </template>
 
 <script>
@@ -19,40 +21,19 @@ import HeaderComponent from "@/pages/layouts/Header";
 import FooterComponent from "@/pages/layouts/Footer";
 
 export default {
-  components: {
-    HeaderComponent,
-    FooterComponent
-  }
+    components: {
+        HeaderComponent,
+        FooterComponent
+    }
 };
 </script>
 
 <style scoped>
-body {
-  margin: 0;
+.fade-enter-active,
+.fade-leave-active {
+    transition: opacity 0.5s;
 }
-
-.main {
-  display: flex;
-  min-height: 100vh;
-  flex-direction: column;
-}
-
-.main__header {
-  width: 100%;
-}
-
-.main__body {
-  display: flex;
-  flex-direction: column;
-  flex-grow: 1;
-}
-
-.main__body__content {
-  flex-grow: 1;
-  margin: 20px 0 20px 0;
-}
-
-.main__body__footer {
-  width: 100%;
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+    opacity: 0;
 }
 </style>
