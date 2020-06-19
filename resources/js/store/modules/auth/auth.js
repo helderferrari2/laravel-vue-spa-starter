@@ -16,6 +16,10 @@ export default {
         AUTH_USER_LOGOUT(state) {
             state.user = null;
             state.authenticated = false;
+        },
+
+        SET_USER(state, payload) {
+            state.user = payload;
         }
     },
 

@@ -11,9 +11,6 @@ Vue.use(VeeValidate);
 Vue.config.productionTip = false;
 Vue.prototype.$eventHub = new Vue();
 
-//Global Components
-Vue.component("preloader", require("@/components/helpers/Preloader").default);
-
 const app = new Vue({
     el: "#app",
     router,
