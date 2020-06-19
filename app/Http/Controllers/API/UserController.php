@@ -56,7 +56,14 @@ class UserController extends BaseController
      */
     public function update(Request $request, $id)
     {
-        //
+        $user = User::find($id);
+        $user->name = $request->input('name');
+        $user->email = $request->input('email');
+        if (!empty($request->input('password'))) {
+            $user->password = Hash::make($request->input('password'));
+        }
+        $user->save();
+        return $this->successResponse($user);
     }
 
     /**

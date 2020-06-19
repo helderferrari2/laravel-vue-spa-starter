@@ -17,13 +17,11 @@ const api = axios.create({
 // Request interceptor
 api.interceptors.request.use(
     request => {
-        store.dispatch("startPreloader");
         let token = AuthService.getToken();
         if (token) request.headers.common["Authorization"] = `Bearer ${token}`;
         return request;
     },
     error => {
-        store.dispatch("stopPreloader");
         Promise.reject(error);
     }
 );
@@ -31,11 +29,9 @@ api.interceptors.request.use(
 //Response Interceptor
 api.interceptors.response.use(
     response => {
-        store.dispatch("stopPreloader");
         return response;
     },
     error => {
-        store.dispatch("stopPreloader");
         const { status } = error.response;
 
         //Unauthenticated
