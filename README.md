@@ -1,6 +1,6 @@
 # Laravel VUE SPA STARTER
 
-Starter SPA built with Laravel 6.0, JWT Auth, Vue 2, Vue Router 3, Vuex 3, Axios
+Starter SPA built with Laravel 6.0, JWT, Vue 2, Vue Router 3, Vuex 3, Axios
 
 ## Included
 
