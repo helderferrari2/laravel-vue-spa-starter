@@ -22,7 +22,6 @@
   <body>
     <div id="app">
       <vue-snotify></vue-snotify>
-      <preloader></preloader>
       <router-view></router-view>
     </div>
 

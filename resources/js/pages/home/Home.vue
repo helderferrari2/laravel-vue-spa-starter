@@ -1,37 +1,39 @@
 <template>
-    <div class="container">
-        <div class="row">
-            <div class="card mt-5" style="width: 18rem;">
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item">
-                        <div class="m-3 text-center">
-                            <img
-                                class="rounded-circle"
-                                src="/assets/images/user_no_image.png"
-                                width="110"
-                            />
-                        </div>
-                    </li>
-                    <li class="list-group-item">
-                        <strong>Name:</strong>
-                        {{ user.name }}
-                    </li>
-                    <li class="list-group-item">
-                        <strong>E-mail:</strong>
-                        {{ user.email }}
-                    </li>
-                </ul>
-            </div>
-        </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-6">
+        <table class="table mt-5">
+          <thead>
+            <tr>
+              <th scope="col">Tecnologies</th>
+              <th scope="col">Version</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="item in items" :key="item.name">
+              <th scope="row">{{item.name}}</th>
+              <td>{{item.version}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
+  </div>
 </template>
 
 <script>
 export default {
-    computed: {
-        user() {
-            return this.$store.state.auth.user;
-        }
-    }
+  data() {
+    return {
+      items: [
+        { name: "Laravel", version: "6.2 (LTS)" },
+        { name: "Vue", version: "2.5.7" },
+        { name: "Vue-router", version: "3.3.2" },
+        { name: "Vuex", version: "3.4.0" },
+        { name: "Axios", version: "0.19" },
+        { name: "JWT", version: "1.0" }
+      ]
+    };
+  }
 };
 </script>

@@ -2,28 +2,34 @@ import { handleErrorResponse } from "@/services/helpers.service";
 import endpoint from "@/api/api";
 
 export default {
-  state: {
-    user: {}
-  },
+    state: {},
+    mutations: {},
+    getters: {},
 
-  mutations: {
-    SET_USER(state, payload) {
-      state.user = payload;
+    actions: {
+        userStore(context, params) {
+            return new Promise((resolve, reject) => {
+                return endpoint
+                    .apiUserStore(params)
+                    .then(() => resolve())
+                    .catch(error => {
+                        reject(handleErrorResponse(error));
+                    });
+            });
+        },
+
+        updateUser(context, params) {
+            return new Promise((resolve, reject) => {
+                return endpoint
+                    .apiUpdateUser(params)
+                    .then(response => {
+                        context.commit("SET_USER", response.data.data);
+                        resolve();
+                    })
+                    .catch(error => {
+                        reject(handleErrorResponse(error));
+                    });
+            });
+        }
     }
-  },
-
-  getters: {},
-
-  actions: {
-    userStore(context, params) {
-      return new Promise((resolve, reject) => {
-        return endpoint
-          .apiUserStore(params)
-          .then(() => resolve())
-          .catch(error => {
-            reject(handleErrorResponse(error));
-          });
-      });
-    }
-  }
 };
